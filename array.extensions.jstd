@@ -1,0 +1,3 @@
+load:
+  - src/array.extensions.js
+  - test/array.extension.test.js

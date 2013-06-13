@@ -1,13 +1,18 @@
 /**
- * Created with JetBrains WebStorm.
- * User: powerumc
- * Date: 13. 5. 28.
- * Time: 오전 10:24
- * To change this template use File | Settings | File Templates.
+ *
+ * Javascript Array Extensions
+ *
+ * Programming by Junil, Um
+ *
+ * http://powerumc.kr
+ * http://blog.powerumc.kr
+ * http://devwith.com
+ *
  */
 
-"use strict"
 
+"use strict"
+;
 var isFunction = function(fn) {
     return typeof fn === 'function';
 };
@@ -32,7 +37,15 @@ Array.prototype.foreach = function(fn, args) {
     {
         if(fn.isFunction()) {
 
+            var num, obj, param;
             for(var i=0;i<this.length;i++) {
+
+                num     = i;
+                obj     = this[i];
+                param   = args;
+
+                if( fn.length === 1 ) num = obj;
+
                 fn.apply(this, [ i, this[i], args ]);
             }
         }
@@ -56,7 +69,6 @@ Array.prototype.any = function( predicate ) {
     }
 
 };
-
 
 
 Array.prototype.first = function( predicate )
@@ -99,10 +111,10 @@ Array.prototype.firstOrNew = function ( predicate ) {
 };
 
 
-Array.prototype.last = function( predicate ) {
+Array.prototype.lastOrDefault = function( predicate ) {
     if ( predicate && predicate.isFunction()) {
 
-        for(var i=this.length-1;i>0;i--) {
+        for(var i=this.length-1;i>=0;i--) {
             if(predicate(this[i])) return this[i];
         }
 
@@ -110,10 +122,37 @@ Array.prototype.last = function( predicate ) {
     }
     else {
         var ret = this.length > 0 ? this[this.length-1] : null;
-        if( ret === null ) throw "Null References";
+        if( ret === null ) return null;
 
         return ret;
    }
 };
 
+Array.prototype.lastOrNew = function( predicate ) {
+    var last = this.lastOrDefault(predicate);
 
+    return last || [];
+};
+
+Array.prototype.last = function( predicate ) {
+    var last = this.lastOrDefault(predicate);
+
+    if( !last ) throw "Null Reference";
+
+    return last;
+}
+
+
+
+Array.prototype.select = function( selector ) {
+    if( selector || selector.isFunction()) {
+        var arr = [];
+        for(var i=0; i<this.length; i++) {
+            arr.push( selector(this[i]) );
+        }
+
+        return arr;
+    }
+    else {
+    }
+}
