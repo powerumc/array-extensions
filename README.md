@@ -7,11 +7,11 @@
 ## Basics
 
 any( predicate )
-
+''' js
     [1,2,3,4,5].any();     // True
     [1,2,3,4,5].any(function(i) { return i > 3; });    // True
     [1,2,3,4,5].any(function(i) { return i > 5; });    // False
-
+'''
 first - ( predicate )
 
     [1,2,3].first();    // 1
