@@ -6,6 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
+"use strict"
+
 var isFunction = function(fn) {
     return typeof fn === 'function';
 };
@@ -113,23 +115,5 @@ Array.prototype.last = function( predicate ) {
         return ret;
    }
 };
-
-
-
-console.info('any() = ' + [1,2,3].any() );
-console.info('any(fn) > 3 = ' + [1,2,3,4,5].any(function(i) { return i > 3; } ));
-console.info('any(fn) > 5 = ' + [1,2,3,4,5].any(function(i) { return i > 5; } ));
-
-console.info('foreach(i,o,arg) = ');
-[1,'a',2,'b'].foreach(function(i,o,args) {
-    console.info("                              i=" + i + ",    o=" + o + "     args=" + (args || "null"));
-});
-
-console.info("firstorDefault() = " + [3,6,9].firstOrDefault());
-console.info("firstorDefault(fn) = " + [3,6,9].firstOrDefault(function(i) { return i > 3; }));
-
-console.info("last() = " + [3,6,9].last());
-
-console.info("last(pred) = " + [3,6,7,10].last(function(o) { return 7 > o }) );
 
 
