@@ -48,27 +48,27 @@ last - ( predicate )
           console.info("foreach i=" + i);
        });
 
-   // results
-   foreach i=0
-   foreach i=1
-   foreach i=2
+    // results
+    foreach i=0
+    foreach i=1
+    foreach i=2
 
 
        arr.foreach(function(i, o) {
            console.info("foreach i=" + i + " key=" + o.key);
        });
 
-   // results
-   foreach i=0 key=powerumc
-   foreach i=1 key=devth
-   foreach i=2 key=domain
+    // results
+    foreach i=0 key=powerumc
+    foreach i=1 key=devth
+    foreach i=2 key=domain
 
 
        arr.foreach(function(i, o, arg) {
            console.info("foreach i=" + i + " key=" + o.key + "  arg=" + arg);
        }, "this is arguments");
 
-   // results
-   foreach i=0 key=powerumc  arg=this is arguments
-   foreach i=1 key=devth  arg=this is arguments
-   foreach i=2 key=domain  arg=this is arguments
+    // results
+    foreach i=0 key=powerumc  arg=this is arguments
+    foreach i=1 key=devth  arg=this is arguments
+    foreach i=2 key=domain  arg=this is arguments
