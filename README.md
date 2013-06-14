@@ -35,6 +35,33 @@ last - ( predicate )
 [3,6,9].lastOrNew(function(i) { return i < 2; });    // []    is new Array()
 ```
 
+## Selector and Condition
+
+select( selector )
+
+```js
+var selected = arr.select(function(o) {
+    return { name: o.key, website: o.value };
+});
+
+// results var selected
+select name=powerumc,   website=http://blog.powerumc.kr
+select name=devth,      website=http://devwith.com
+select name=domain,     website=http://powerumc.kr
+```
+
+where( selector )
+```js
+var selected = arr.where(function(o) {
+    return o.value.lastIndexOf(".kr") > 0
+});
+
+// results var selected
+where lastIndexOf('.kr')=http://blog.powerumc.kr
+where lastIndexOf('.kr')=http://powerumc.kr
+```
+
+
 
 ## Loop
 
