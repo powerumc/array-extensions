@@ -107,21 +107,6 @@ TestCase("array.extensions.js", {
 
     },
 
-    "test.foreach": function() {
-
-        arr.foreach(function(i) {
-           console.info("foreach i=" + i);
-        });
-
-        arr.foreach(function(i, o) {
-            console.info("foreach i=" + i + " key=" + o.key);
-        });
-
-        arr.foreach(function(i, o, arg) {
-            console.info("foreach i=" + i + " key=" + o.key + "  arg=" + arg);
-        }, "this is arguments");
-    },
-
 
     "test.select": function() {
         var selected = arr.select(function(o) { return { name: o.key, website: o.value }; });
@@ -141,6 +126,42 @@ TestCase("array.extensions.js", {
         for(var i=0; i<selected.length; i++) {
             console.info("endwith('.kr')=" + selected[i].value)
         }
+    },
+
+
+
+    "test.foreach": function() {
+
+        arr.foreach(function(o) {
+            console.info("foreach o=" + o.key);
+        });
+
+        arr.foreach(function(i, o) {
+            console.info("foreach i=" + i + " key=" + o.key);
+        });
+
+        arr.foreach(function(i, o, arg) {
+            console.info("foreach i=" + i + " key=" + o.key + "  arg=" + arg);
+        }, "this is arguments");
+    },
+
+    "test.foreach.continue": function() {
+
+        arr.foreach(function(i, o) {
+            if( i > 1) return foreach.continue;
+
+            console.info("foreach continue i = " + i + "   key = " + o.key);
+        })
+    },
+
+    "test.foreach.break": function() {
+
+        arr.foreach(function(i, o) {
+            if( i == 1 ) return foreach.break;
+
+            console.info("foreach break i = " + i + "   key = " + o.key);
+        });
+
     }
 
 

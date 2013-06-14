@@ -31,6 +31,13 @@ Object.prototype.isArray = function()
     return isArray(this);
 };
 
+var foreach = foreach || {
+
+    "continue": true,
+    "break"   : false
+
+};
+
 Array.prototype.foreach = function(fn, args) {
 
     if( this.isArray())
@@ -46,7 +53,10 @@ Array.prototype.foreach = function(fn, args) {
 
                 if( fn.length === 1 ) num = obj;
 
-                fn.apply(this, [ i, this[i], args ]);
+                var isContinue = fn.apply(this, [ num, this[i], args ]);
+
+                if ( isContinue === false ) break;
+
             }
         }
     }

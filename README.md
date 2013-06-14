@@ -44,14 +44,14 @@ var arr = [ { "key": "powerumc",    "value": "http://blog.powerumc.kr" },
             { "key": "devth",       "value": "http://devwith.com" },
             { "key": "domain",      "value": "http://powerumc.kr" }];
 
-arr.foreach(function(i) {
-  console.info("foreach i=" + i);
+arr.foreach(function(o) {
+    console.info("foreach o=" + o.key);
 });
 
 // results
-foreach i=0
-foreach i=1
-foreach i=2
+foreach o=powerumc
+foreach o=devth
+foreach o=domain
 
 
 arr.foreach(function(i, o) {
@@ -72,4 +72,34 @@ arr.foreach(function(i, o, arg) {
 foreach i=0 key=powerumc  arg=this is arguments
 foreach i=1 key=devth  arg=this is arguments
 foreach i=2 key=domain  arg=this is arguments
+```
+
+foreach ( i, object, args ) with **foreach.continue**
+```js
+arr.foreach(function(i, o) {
+    if( i > 1) {
+        return foreach.continue;
+    }
+
+    console.info("foreach continue i = " + i + "   key = " + o.key);
+});
+
+// results
+foreach continue i = 0   key = powerumc
+foreach continue i = 1   key = devth
+```
+
+
+foreach ( i, object, args ) with **foreach.break**
+```
+arr.foreach(function(i, o) {
+    if( i == 1 ) {
+        return foreach.break;
+    }
+
+    console.info("foreach break i = " + i + "   key = " + o.key);
+});
+
+// results
+foreach break i = 0   key = powerumc
 ```
