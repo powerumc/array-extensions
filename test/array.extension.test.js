@@ -1,5 +1,11 @@
 "use strict"
 ;
+
+var arr = [ { "key": "powerumc",    "value": "http://blog.powerumc.kr" },
+            { "key": "devth",       "value": "http://devwith.com" },
+            { "key": "domain",      "value": "http://powerumc.kr" }];
+
+
 TestCase("array.extensions.js", {
 
     "test.any": function() {
@@ -102,9 +108,6 @@ TestCase("array.extensions.js", {
     },
 
     "test.foreach": function() {
-        var arr = [ { "key": "powerumc",    "value": "http://blog.powerumc.kr" },
-                    { "key": "devth",       "value": "http://devwith.com" },
-                    { "key": "domain",       "value": "http://powerumc.kr" }];
 
         arr.foreach(function(i) {
            console.info("foreach i=" + i);
@@ -117,20 +120,29 @@ TestCase("array.extensions.js", {
         arr.foreach(function(i, o, arg) {
             console.info("foreach i=" + i + " key=" + o.key + "  arg=" + arg);
         }, "this is arguments");
-    }/*,
+    },
 
 
     "test.select": function() {
+        var selected = arr.select(function(o) { return { name: o.key, website: o.value }; });
 
-        var arr = [ { "key": "powerumc",    "value": "http://blog.powerumc.kr" },
-            { "key": "devth",       "value": "http://devwith.com" },
-            { "key": "domain",       "value": "http://powerumc.kr" }];
+        for(var i=0; i<selected.length; i++ ) {
+            console.info(selected[i].name + " " + selected[i].website );
 
-        for(var i=0; i<arr.length; i++) {
-            console.info(arr[i].key);
+            assertEquals(selected[i].name, arr[i].key);
+            assertEquals(selected[i].website, arr[i].value);
+        }
+    },
+
+    "test.where": function() {
+        console.info("test.where-----------------------------");
+        var selected = arr.where(function(o) { return o.value.lastIndexOf(".kr") > 0 });
+
+        for(var i=0; i<selected.length; i++) {
+            console.info("endwith('.kr')=" + selected[i].value)
         }
     }
-*/
+
 
 
 });

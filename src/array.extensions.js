@@ -140,12 +140,12 @@ Array.prototype.last = function( predicate ) {
     if( !last ) throw "Null Reference";
 
     return last;
-}
+};
 
 
 
 Array.prototype.select = function( selector ) {
-    if( selector || selector.isFunction()) {
+    if( selector && selector.isFunction()) {
         var arr = [];
         for(var i=0; i<this.length; i++) {
             arr.push( selector(this[i]) );
@@ -155,4 +155,27 @@ Array.prototype.select = function( selector ) {
     }
     else {
     }
-}
+};
+
+Array.prototype.where = function( selector ) {
+    if( selector && selector.isFunction()) {
+        var arr = [];
+        for(var i=0; i<this.length; i++) {
+            if( selector(this[i])) {
+                arr.push(this[i]);
+            }
+        }
+
+        return arr;
+
+    } else {
+        var arr = [];
+        for(var i=0; i<this.length; i++ ) {
+            if( this[i] == selector ) {
+                arr.push(this[i]);
+            }
+        }
+
+        return arr;
+    }
+};
