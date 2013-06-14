@@ -310,5 +310,38 @@ TestCase("array.extensions.js", {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ,
+    "test.complex1": function() {
+
+        var sum = Array.range(1, 11).sum();
+        console.info("complex sum = " + sum);
+        assertEquals(sum, 55);
+
+
+        var arr = Array.range(1, 10)
+                       .select(function(i) { return { number:i, name:"POWERUMC " + i } })
+                       .where(function(o) { return o.number >= 5 })
+                       .take(3);
+
+        for(var i=0; i< arr.length; i++) {
+            console.info("complex arr = " + arr[i].name);
+        }
+
+    }
+
 });
 

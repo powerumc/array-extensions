@@ -1,7 +1,7 @@
 # Javascript Array Extensions
 
 
-- It is an array extensions that can be used javascript and node.js.
+- It is an array extensions that can be used **javascript** and **node.js**.
 - It is just likes C# extension methods or lambda expression can be used.
 
 # Support methods
@@ -264,7 +264,7 @@ var avg = arr.average(function(i) { return i * 2; });   // 11.1
 }
 ```
 
-**range(start, max, step )** and **Array.range( start, max, step )**
+**range(start, max, step )** and **Array.range( start, max, step )** _likes range method of python language._
 
 ```js
 var arr = [0,1,2,3,4,5];
@@ -276,4 +276,26 @@ var arr = Array.range(10);          // 0,1,2,3,4,5,6,7,8,9
 var arr = Array.range(10, 20);      // 10,11,12,13,14,15,16,17,18,19
 var arr = Array.range(0, 10, 2);    // 0,2,4,6,8
 
+```
+
+
+
+# Complex Examples
+
+## Example 1
+```js
+var sum = Array.range(1, 11).sum();         // sum = 55
+```
+
+## Example 2
+```js
+var arr = Array.range(1, 10)
+               .select(function(i) { return { number:i, name:"POWERUMC " + i } })
+               .where(function(o) { return o.number >= 5 })
+               .take(3);
+
+// results var arr
+POWERUMC 5
+POWERUMC 6
+POWERUMC 7
 ```
