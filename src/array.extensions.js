@@ -31,6 +31,15 @@ Object.prototype.isArray = function()
     return isArray(this);
 };
 
+Object.prototype.isNumber = function() {
+    return typeof this === "number";
+};
+
+Object.prototype.isString = function() {
+    return typeof this === "string";
+}
+
+
 var foreach = foreach || {
 
     "continue": true,
@@ -189,3 +198,136 @@ Array.prototype.where = function( selector ) {
         return arr;
     }
 };
+
+var comparer = comparer || {
+    ascending   : function(a, b) { return a - b },
+    asc         : this.ascending,
+    descending  : function(a, b) { return b - a },
+    desc        : this.descending
+};
+
+Array.prototype.orderBy = function( _comparer ) {
+
+    _comparer = _comparer || comparer.ascending;
+
+    return this.sort(_comparer);
+};
+
+
+Array.prototype.take = function( number ) {
+
+    if( arguments.length === 0 ) throw "take method needs an argument of number";
+
+    if( number && number.isNumber()) {
+        number = number > this.length ? this.length : number;
+
+        var arr = [];
+        for(var i=0; i<number; i++) {
+            arr.push( this[i] );
+        }
+
+        return arr;
+    }
+};
+
+Array.prototype.skip = function( number ) {
+
+    if( arguments.length === 0 ) throw "skip method needs an argument of number";
+
+    if( number && number.isNumber()) {
+        number = number > this.length ? this.length : number;
+
+        var arr = [];
+        for(var i=number; i<this.length; i++) {
+            arr.push( this[i] );
+        }
+
+        return arr;
+    }
+
+}
+
+Array.prototype.sum = function( selector ) {
+
+    var sum = 0;
+    if( selector && selector.isFunction()) {
+
+        for(var i=0; i<this.length; i++) {
+            sum += selector( this[i] );
+        }
+
+    } else {
+
+        for(var i=0; i<this.length; i++) {
+
+            var current = this[i];
+
+            if( current.isNumber()) {
+                sum += current;
+            } else if( current.isString()) {
+
+                if( current.indexOf(".") > 0) {
+                    sum += parseFloat(current);
+                }
+                else {
+                    sum += parseInt(current);
+                }
+            }
+        }
+    }
+
+    return sum;
+};
+
+Array.prototype.average = function( selector ) {
+
+    if( this.length === 0 ) return 0;
+
+    var sum = this.sum(selector);
+
+    return sum / this.length;
+};
+
+
+function _range( start, max, step, arr ) {
+    step = step || 1;
+
+    if( !arr || !arr.isArray() ) throw "_range arr is undefined";
+    if( !max ) {
+        max     = start;
+        start   = 0;
+    }
+
+    if( start >= max ) return;
+
+    for(var i=start; i<max; i+= step) {
+        arr.push( i );
+    }
+}
+
+Array.range = function( start, max, step ) {
+
+    if( arguments.length === 0 ) throw "range method needs one or more arguments"
+
+
+    var arr = [];
+    _range(start, max, step, arr);
+
+    return arr;
+};
+
+Array.prototype.range = function( start, max, step ) {
+
+    if( arguments.length === 0 ) throw "range method needs one or more arguments"
+
+    _range(start, max, step, this);
+
+    return this;
+}
+
+
+
+
+function newid() {
+
+}
