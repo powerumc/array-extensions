@@ -20,6 +20,7 @@
 - take
 - skip
 - sum
+- average
 - range and Array.range
 
 ## Basics

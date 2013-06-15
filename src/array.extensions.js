@@ -200,9 +200,11 @@ Array.prototype.where = function( selector ) {
 };
 
 var comparer = comparer || {
-    ascending   : function(a, b) { return a - b },
+    _ascending  : function(a, b) { return a - b },
+    ascending   : this._ascending,
     asc         : this.ascending,
-    descending  : function(a, b) { return b - a },
+    _descending : function(a, b) { return b - a },
+    descending  : this._descending,
     desc        : this.descending
 };
 
@@ -307,7 +309,10 @@ function _range( start, max, step, arr ) {
 
 Array.range = function( start, max, step ) {
 
-    if( arguments.length === 0 ) throw "range method needs one or more arguments"
+    if( arguments.length === 0 )        throw "range method needs one or more arguments"
+    if( start && !start.isNumber())     throw "range argument 'start' needs number type";
+    if( max   && !max.isNumber())       throw "range argument 'max' needs number type";
+    if( step  && !step.isNumber())      throw "range argument 'step' needs number type";
 
 
     var arr = [];
@@ -318,7 +323,10 @@ Array.range = function( start, max, step ) {
 
 Array.prototype.range = function( start, max, step ) {
 
-    if( arguments.length === 0 ) throw "range method needs one or more arguments"
+    if( arguments.length === 0 )        throw "range method needs one or more arguments"
+    if( start && !start.isNumber())     throw "range argument 'start' needs number type";
+    if( max   && !max.isNumber())       throw "range argument 'max' needs number type";
+    if( step  && !step.isNumber())      throw "range argument 'step' needs number type";
 
     _range(start, max, step, this);
 

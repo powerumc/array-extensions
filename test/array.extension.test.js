@@ -341,6 +341,16 @@ TestCase("array.extensions.js", {
             console.info("complex arr = " + arr[i].name);
         }
 
+
+        // comparer 에 key 를 넣을 수 있게...
+
+        /*
+        function Comparer(keys) {
+        }
+
+        new Comparer( { arr.a, arr.b });
+
+         */
     }
 
 });
