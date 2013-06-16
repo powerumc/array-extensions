@@ -24,6 +24,11 @@
 - range and Array.range
 - union
 - clone
+- merge                 - working
+- innerJoin             - working
+- outerJoin             - working
+- groupBy               - working
+- distinct              - working
 
 ## **Basics**
 
@@ -289,9 +294,9 @@ var arr = Array.range(0, 10, 2);    // 0,2,4,6,8
 
 ```
 
-# Objects and Array
+## Objects and Array
 
-## **Object.clone( first, second )**
+**Object.clone( first, second )**
 ```js
 var person = {  "name"      : { first:"Junil", last:"Um" },
                 "address"   : { country:"South Korea", city:"Seoul" },
@@ -305,7 +310,7 @@ var clone = Object.clone(person);
    "email"     : "powerumc at gmail" }
 ```
 
-## **Array.clone( first, second )**
+**Array.clone( first, second )**
 ```js
 var arrNum = [1,2,3,4,5,6,7,8,9,10];
 var clone  = Object.clone(arrNum);
@@ -314,7 +319,7 @@ var clone  = Object.clone(arrNum);
 1,2,3,4,5,6,7,8,9,10
 ```
 
-## **union( second )**
+**union( second )**
 ```js
 var first    = [1,2,3,4,5];
 var second   = [6,7,8,9,10];
@@ -324,7 +329,7 @@ var union    = first.union(second);
 array.union = 1,2,3,4,5,6,7,8,9,10
 ```
 
-## **Array.union( first, second )**
+**Array.union( first, second )**
 ```js
 var first   = [1,2,3,[4,5]];
 var second  = [[6,7,8],9,10];
@@ -340,7 +345,7 @@ array[5] = [9]
 array[6] = [10]
 ```
 
-## **Object.union( first, second )**
+**Object.union( first, second )**
 ```js
 var person1 = { "name"      : { first:"Junil", last:"Um" },
                 "address"   : { country:"South Korea", city:"Seoul" },
