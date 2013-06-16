@@ -22,8 +22,8 @@
 - sum
 - average
 - range and Array.range
-- union                             - working
-- clone                             - working
+- union
+- clone
 
 ## **Basics**
 
@@ -289,7 +289,76 @@ var arr = Array.range(0, 10, 2);    // 0,2,4,6,8
 
 ```
 
+# Objects and Array
 
+## **Object.clone( first, second )**
+```js
+var person = {  "name"      : { first:"Junil", last:"Um" },
+                "address"   : { country:"South Korea", city:"Seoul" },
+                "email"     : "powerumc at gmail" };
+
+var clone = Object.clone(person);
+
+// results var clone
+{  "name"      : { first:"Junil", last:"Um" },
+   "address"   : { country:"South Korea", city:"Seoul" },
+   "email"     : "powerumc at gmail" }
+```
+
+## **Array.clone( first, second )**
+```js
+var arrNum = [1,2,3,4,5,6,7,8,9,10];
+var clone  = Object.clone(arrNum);
+
+// results var clone
+1,2,3,4,5,6,7,8,9,10
+```
+
+## **union( second )**
+```js
+var first    = [1,2,3,4,5];
+var second   = [6,7,8,9,10];
+var union    = first.union(second);
+
+// results var union
+array.union = 1,2,3,4,5,6,7,8,9,10
+```
+
+## **Array.union( first, second )**
+```js
+var first   = [1,2,3,[4,5]];
+var second  = [[6,7,8],9,10];
+var union    = first.union(second);
+
+// results var union
+array[0] = 1
+array[1] = 2
+array[2] = 3
+array[3] = [4,5]
+array[4] = [6,7,8]
+array[5] = [9]
+array[6] = [10]
+```
+
+## **Object.union( first, second )**
+```js
+var person1 = { "name"      : { first:"Junil", last:"Um" },
+                "address"   : { country:"South Korea", city:"Seoul" },
+                "email"     : "powerumc at gmail" };
+var person2 = { "name"      : { first:"Apple", last:"MacBook" },
+                "address"   : { country:"U.S", city:"N/A" },
+                "email"     : "apple@apple.com" };
+
+var union   = Object.union(person1, person2);
+
+// results var union
+array[0] =  { "name"      : { first:"Junil", last:"Um" },
+              "address"   : { country:"South Korea", city:"Seoul" },
+              "email"     : "powerumc at gmail" }
+array[1] =  { "name"      : { first:"Apple", last:"MacBook" },
+              "address"   : { country:"U.S", city:"N/A" },
+              "email"     : "apple@apple.com" }
+```
 
 # Complex Examples
 

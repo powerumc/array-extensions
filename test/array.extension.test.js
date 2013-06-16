@@ -1,13 +1,73 @@
 "use strict"
 ;
 
+// http://msdn.microsoft.com/ko-kr/library/bb341731.aspx
+
+TestCase("object.clone", {
+    "test.clone.object": function() {
+
+        var str     = "POWERUMC";
+        var cloned  = Object.clone(str);
+
+        console.info("clone.object = " + cloned);
+        assertEquals(cloned, str);
+
+    },
+
+    "test.clone.number": function() {
+        var num     = 12345;
+        var cloned  = Object.clone(num);
+
+        console.info("clone.number = " + cloned);
+        assertEquals(cloned, num);
+    },
+
+    "test.clone.boolean": function() {
+        var is      = true;
+        var cloned  = Object.clone(is);
+
+        console.info("clone.boolean " + cloned);
+        assertEquals(cloned, is);
+    },
+
+    "test.clone.object.person": function() {
+
+        var person = { name:"POWERUMC", country:"South Korea" };
+        var cloned = Object.clone(person);
+
+        console.info("clone.person.object = name = " + cloned.name + ", country = " + cloned.country);
+        assertEquals(person, cloned);
+    },
+
+    "test.clone.array": function() {
+
+        var arrNum = [1,2,3,4,5,6,7,8,9,10];
+        var cloned = Object.clone(arrNum);
+
+        console.info("clone.array = " + cloned);
+        assertEquals(arrNum, cloned);
+    },
+    "test.deepClone": function() {
+
+        var person = {  "name"      : { first:"Junil", last:"Um" },
+                        "address"   : { country:"South Korea", city:"Seoul" },
+                        "email"     : "powerumc at gmail" };
+
+        var cloned = Object.clone(person);
+
+        console.info("nested person clone = " + cloned.name.first + ", " + cloned.address.country + ", " + cloned.email);
+        assertEquals(cloned, person);
+    }
+});
+
+
 var arr = [ { "key": "powerumc",    "value": "http://blog.powerumc.kr" },
             { "key": "devth",       "value": "http://devwith.com" },
             { "key": "domain",      "value": "http://powerumc.kr" }];
 
 
-TestCase("array.extensions.js", {
 
+TestCase("array.any", {
     "test.any": function() {
         var result = [1,2,3,4,5].any();
         assertTrue(result);
@@ -24,8 +84,11 @@ TestCase("array.extensions.js", {
         var result = [1,2,3,4,5].any(function(i) { return i > 5; });
         assertFalse(result);
         console.info(result);
-    },
+    }
+});
 
+
+TestCase("array.first", {
     "test.first": function() {
 
         var result = [1,2,3].first();
@@ -54,10 +117,12 @@ TestCase("array.extensions.js", {
     "test.defaultOrDefault(fn)_must_be_null": function () {
         var result = [3,4,5].firstOrDefault(function(i) { return i > 5; });
         assertNull(result);
-    },
+    }
+});
 
 
 
+TestCase("array.last", {
     "test.last": function() {
         {
             var result = [3,6,9].last();
@@ -105,9 +170,11 @@ TestCase("array.extensions.js", {
             assertEquals(result, []);
         }
 
-    },
+    }
+});
 
 
+TestCase("array.select", {
     "test.select": function() {
         var selected = arr.select(function(o) {
             return { name: o.key, website: o.value };
@@ -119,8 +186,11 @@ TestCase("array.extensions.js", {
             assertEquals(selected[i].name, arr[i].key);
             assertEquals(selected[i].website, arr[i].value);
         }
-    },
+    }
+});
 
+
+TestCase("array.where", {
     "test.where": function() {
         console.info("test.where-----------------------------");
         var selected = arr.where(function(o) {
@@ -130,9 +200,11 @@ TestCase("array.extensions.js", {
         for(var i=0; i<selected.length; i++) {
             console.info("where lastIndexOf('.kr')=" + selected[i].value)
         }
-    },
+    }
+});
 
 
+TestCase("array.forach", {
     "test.foreach": function() {
 
         arr.foreach(function(o) {
@@ -164,12 +236,11 @@ TestCase("array.extensions.js", {
 
             console.info("foreach break i = " + i + "   key = " + o.key);
         });
-
-    },
-
-
+    }
+});
 
 
+TestCase("array.orderBy", {
     "test.orderBy": function() {
 
         var arr = [ 23, 8, 43 ,81, 4, 32, 64 ];
@@ -189,9 +260,11 @@ TestCase("array.extensions.js", {
             console.info("orderBy comparer.descending " + arr[i]);
         }
 
-    },
+    }
+});
 
 
+TestCase("array.take.and.skip", {
     "test.take": function() {
 
         var arr = [1,2,3,4,5,6,7,8,9,10];
@@ -229,8 +302,11 @@ TestCase("array.extensions.js", {
         console.info("take and skip " + pagingList);
         assertEquals(pagingList, "11,12,13,14,15");
 
-    },
+    }
+});
 
+
+TestCase("array.sum", {
     "test.sum.number": function() {
         var arr = [1,2,3,4,5,6,7,8,9,10];
         var sum = arr.sum();
@@ -252,8 +328,11 @@ TestCase("array.extensions.js", {
         var sum = arr.sum(function(i) { return i / 2; });
 
         console.info("sum selector = " + sum);
-    },
+    }
+});
 
+
+TestCase("array.average", {
     "test.average number": function() {
 
         var arr = [1,2,3,4,5,6,7,8,9,10];
@@ -274,8 +353,11 @@ TestCase("array.extensions.js", {
         var avg = arr.average(function(i) { return i * 2; });
 
         console.info("average selector = " + avg);
-    },
+    }
+});
 
+
+TestCase("array.range", {
     "test.range": function() {
 
         var arr = Array.range(10);
@@ -307,24 +389,48 @@ TestCase("array.extensions.js", {
         console.info("range.prototype.this = " + range);
         assertEquals(range.toString(), "0,1,2,3,4,5,6,7,8,9");
     }
+});
 
 
+TestCase("array.union", {
+    "test.union": function() {
+
+        var first    = [1,2,3,4,5];
+        var second   = [6,7,8,9,10];
+
+        var union    = first.union(second);
+        console.info("array.union = " + union.toString());
+   },
+
+    "test.union.object": function() {
+
+        var first   = [1,2,3,[4,5]];
+        var second  = [[6,7,8],9,10];
+
+        var union    = first.union(second);
+        console.info("array.union.object = " + union.toString());
+        print(union);
+    },
+    "test.union.nested.object": function() {
+
+        var person1 = { "name"      : { first:"Junil", last:"Um" },
+                        "address"   : { country:"South Korea", city:"Seoul" },
+                        "email"     : "powerumc at gmail" };
+
+        var person2 = { "name"      : { first:"Apple", last:"MacBook" },
+                        "address"   : { country:"U.S", city:"N/A" },
+                        "email"     : "apple@apple.com" };
+
+        var union   = Object.union(person1, person2);
+
+        console.info("array.union.nested.object = " + union.toString());
+        print(union);
+    }
+});
 
 
+TestCase("array.complex.example", {
 
-
-
-
-
-
-
-
-
-
-
-
-
-    ,
     "test.complex1": function() {
 
         var sum = Array.range(1, 11).sum();

@@ -13,31 +13,11 @@
 
 "use strict"
 ;
-var isFunction = function(fn) {
-    return typeof fn === 'function';
-};
 
-var isArray = function(obj) {
-    return typeof obj === 'object' && obj instanceof Array;
-};
+var _MESSAGE_OF_NULL_REFERENCES         = function(argName) { return argName + " is null (a) references."; };
+var _MESSAGE_OF_NULL_ARGUMENTS          = function(argName) { return argName + " is null (an) arguments"; };
+var _MESSAGE_OF_INVALID_ARGUMENTS       = function(argName, needsType) { return argName + " is (an) invalid arguments." + ( !needsType ? "It's have to " + needsTypeV : ""); };
 
-Object.prototype.isFunction = function()
-{
-    return isFunction(this);
-};
-
-Object.prototype.isArray = function()
-{
-    return isArray(this);
-};
-
-Object.prototype.isNumber = function() {
-    return typeof this === "number";
-};
-
-Object.prototype.isString = function() {
-    return typeof this === "string";
-}
 
 
 var foreach = foreach || {
@@ -45,6 +25,133 @@ var foreach = foreach || {
     "continue": true,
     "break"   : false
 
+};
+
+var comparer = comparer || {
+    _ascending  : function(a, b) { return a - b },
+    ascending   : this._ascending,
+    asc         : this.ascending,
+    _descending : function(a, b) { return b - a },
+    descending  : this._descending,
+    desc        : this.descending
+};
+
+
+function isFunction( fn ) {
+    return typeof fn === 'function';
+};
+
+function isArray( obj ) {
+    return typeof obj === "object" && obj instanceof Array;
+};
+
+
+function isObject( obj ) {
+    return typeof obj === "object" && (isArray(obj) === false );
+};
+
+function isNumber( obj ) {
+    return typeof obj === "number";
+};
+
+function isString( obj ) {
+    return typeof obj === "string";
+};
+
+function isBoolean( obj ) {
+    return typeof obj === "boolean";
+};
+
+function _cloneObject( obj ) {
+
+    console.info(obj.toString() + " cloned type = " + typeof obj);
+
+    if( isString(obj) || isNumber(obj) || isBoolean(obj)) {
+        return obj.constructor(obj);
+    }
+
+    if( isArray(obj)) {
+        return Array.clone(obj);
+    }
+
+    var prop = Object.getOwnPropertyNames(obj);
+    if( prop && prop.length === 0) {
+        return new Object(obj);
+    }
+    var newObj = new Object();
+    for(var i=0; i<prop.length; i++) {
+
+        var item = obj[prop[ i ]];
+
+        if( isObject(item) ) {
+            _cloneObject(item);
+        }
+
+        newObj[ prop[i] ] = item;
+    }
+
+    return newObj;
+
+};
+
+function print( obj ) {
+
+    if( isString(obj) || isNumber(obj) || isBoolean(obj)) {
+        console.info("print :      " + obj);
+        return;
+    }
+
+        var prop = Object.getOwnPropertyNames(obj);
+        if( prop && prop.length === 0) {
+            return;
+        }
+        for(var i=0; i<prop.length; i++) {
+
+            console.info("print : " + prop[i]);
+
+            var item = obj[prop[ i ]];
+
+                print(item);
+        }
+}
+
+
+Object.clone = function(obj) {
+    return _cloneObject(obj);
+};
+
+
+Object.prototype.isFunction = function() {
+    return isFunction(this);
+};
+
+Object.prototype.isArray = function() {
+    return isArray(this);
+};
+
+Object.prototype.isObject = function() {
+    return isObject(this);
+};
+
+Object.prototype.isNumber = function() {
+    return isNumber(this);
+};
+
+Object.prototype.isString = function() {
+    return isString(this);
+};
+
+
+Array.clone = function( array ) {
+
+    array   = (array && array.isArray()) ? array : [ array ];
+
+    var arr = [];
+    for(var i=0; i<array.length; i++) {
+        arr.push( Object.clone(array[ i ]) );
+    }
+
+    return arr;
 };
 
 Array.prototype.foreach = function(fn, args) {
@@ -98,11 +205,11 @@ Array.prototype.first = function( predicate )
             if(predicate(this[i])) return this[i];
         }
 
-        throw "Null References";
+        throw _MESSAGE_OF_NULL_REFERENCES("no predicate")
     }
     else {
         var ret = this.length > 0 ? this[0] : null;
-        if( ret === null ) throw "Null References";
+        if( ret === null ) throw _MESSAGE_OF_NULL_REFERENCES("ret");
 
         return ret;
     }
@@ -199,14 +306,7 @@ Array.prototype.where = function( selector ) {
     }
 };
 
-var comparer = comparer || {
-    _ascending  : function(a, b) { return a - b },
-    ascending   : this._ascending,
-    asc         : this.ascending,
-    _descending : function(a, b) { return b - a },
-    descending  : this._descending,
-    desc        : this.descending
-};
+
 
 Array.prototype.orderBy = function( _comparer ) {
 
@@ -291,10 +391,25 @@ Array.prototype.average = function( selector ) {
 };
 
 
-function _range( start, max, step, arr ) {
+Array.range = function( start, max, step ) {
+
+    if( arguments.length === 0 )        throw "range method needs one or more arguments"
+    if( start && !start.isNumber())     throw _MESSAGE_OF_INVALID_ARGUMENTS("start", "Number");
+    if( max   && !max.isNumber())       throw _MESSAGE_OF_INVALID_ARGUMENTS("max", "Number");
+    if( step  && !step.isNumber())      throw _MESSAGE_OF_INVALID_ARGUMENTS("step", "Number");
+
+
+    var arr = [];
+    _range(arr, start, max, step);
+
+    return arr;
+};
+
+
+function _range( arr, start, max, step ) {
     step = step || 1;
 
-    if( !arr || !arr.isArray() ) throw "_range arr is undefined";
+    if( !arr || !arr.isArray() ) throw _MESSAGE_OF_NULL_ARGUMENTS("arr");
     if( !max ) {
         max     = start;
         start   = 0;
@@ -307,35 +422,48 @@ function _range( start, max, step, arr ) {
     }
 }
 
-Array.range = function( start, max, step ) {
-
-    if( arguments.length === 0 )        throw "range method needs one or more arguments"
-    if( start && !start.isNumber())     throw "range argument 'start' needs number type";
-    if( max   && !max.isNumber())       throw "range argument 'max' needs number type";
-    if( step  && !step.isNumber())      throw "range argument 'step' needs number type";
-
-
-    var arr = [];
-    _range(start, max, step, arr);
-
-    return arr;
-};
 
 Array.prototype.range = function( start, max, step ) {
 
-    if( arguments.length === 0 )        throw "range method needs one or more arguments"
-    if( start && !start.isNumber())     throw "range argument 'start' needs number type";
-    if( max   && !max.isNumber())       throw "range argument 'max' needs number type";
-    if( step  && !step.isNumber())      throw "range argument 'step' needs number type";
+    if( arguments.length === 0 )        throw "range method needs one or more arguments";
+    if( start && !start.isNumber())     throw _MESSAGE_OF_INVALID_ARGUMENTS("start", "Number");
+    if( max   && !max.isNumber())       throw _MESSAGE_OF_INVALID_ARGUMENTS("max", "Number");
+    if( step  && !step.isNumber())      throw _MESSAGE_OF_INVALID_ARGUMENTS("step", "Number");
 
-    _range(start, max, step, this);
+    _range(this, start, max, step);
 
     return this;
+};
+
+
+function _union( first, second ) {
+
+    first  = (first  && first.isArray())    ? first : [ first ];
+    second = (second && second.isArray())   ? second : [ second ];
+
+    var arr = Array.clone(first);
+
+    for(var i=0; i<second.length; i++) {
+        arr.push( Object.clone(second[ i ]) );
+    }
+
+    return arr;
 }
 
 
-
-
-function newid() {
-
+Object.union = function(first, second) {
+    return _union( first, second );
 }
+
+Array.union = function(first, second) {
+    return _union(first, second);
+}
+
+Array.prototype.union = Array.prototype.union || function( second ) {
+
+    if( arguments.length === 0 )        throw "second argument needs an array";
+    if( second && !second.isArray())    throw _MESSAGE_OF_INVALID_ARGUMENTS("second", "Array");
+
+    return _union( this, second );
+};
+
