@@ -22,8 +22,10 @@
 - sum
 - average
 - range and Array.range
+- union                             - working
+- clone                             - working
 
-## Basics
+## **Basics**
 
 **any( predicate )**
 ```js
@@ -31,7 +33,7 @@
 [1,2,3,4,5].any(function(i) { return i > 3; });     // True
 [1,2,3,4,5].any(function(i) { return i > 5; });     // False
 ```
-first( predicate )
+**first( predicate )**
 ```js
 [1,2,3].first();    // 1
 
@@ -42,7 +44,7 @@ first( predicate )
 [3,6,9].firstOrDefault(function(i) { return i > 3; });  // 6
 [3,4,5].firstOrDefault(function(i) { return i > 5; });  // Null
 ```
-last( predicate )
+**last( predicate )**
 ```js
 [3,6,9].last();                                 // 9
 [3,6,9].last(function(i) { return i > 100; });  // throw null references
@@ -55,7 +57,7 @@ last( predicate )
 ```
 
 
-## Selector and Condition
+## **Selector and Condition**
 
 **select( selector )**
 
@@ -121,7 +123,7 @@ take and skip 11,12,13,14,15
 
 
 
-## Loop
+## **Loop**
 
 **foreach ( i, object, args )**
 ```js
@@ -161,6 +163,10 @@ foreach i=2 key=domain,     arg=this is arguments
 
 **foreach ( i, object, args )** _with foreach.continue_
 ```js
+var arr = [ { "key": "powerumc",    "value": "http://blog.powerumc.kr" },
+            { "key": "devth",       "value": "http://devwith.com" },
+            { "key": "domain",      "value": "http://powerumc.kr" }];
+
 arr.foreach(function(i, o) {
     if( i > 1) {
         return foreach.continue;
@@ -176,7 +182,11 @@ foreach continue i = 1,   key = devth
 
 
 **foreach ( i, object, args )** with _foreach.break_
-```
+```js
+var arr = [ { "key": "powerumc",    "value": "http://blog.powerumc.kr" },
+            { "key": "devth",       "value": "http://devwith.com" },
+            { "key": "domain",      "value": "http://powerumc.kr" }];
+
 arr.foreach(function(i, o) {
     if( i == 1 ) {
         return foreach.break;
