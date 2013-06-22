@@ -390,6 +390,32 @@ Array.prototype.average = function( selector ) {
     return sum / this.length;
 };
 
+Array.prototype.max = function( predicate ) {
+
+    var max = 0;
+
+    if( predicate && predicate.isFunction() ) {
+
+        for(var i=0; i<this.length; i++ ) {
+            var pred = predicate(this[i]);
+            if( pred && max < this[i] ) {
+                max = this[i];
+            }
+        }
+
+    } else {
+
+        for(var i=0; i<this.length; i++) {
+            var dest = this[i];
+            if( max < dest ) {
+                max = dest;
+            }
+        }
+    }
+
+    return max;
+}
+
 
 Array.range = function( start, max, step ) {
 
@@ -466,4 +492,3 @@ Array.prototype.union = Array.prototype.union || function( second ) {
 
     return _union( this, second );
 };
-

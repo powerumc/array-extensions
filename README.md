@@ -21,6 +21,8 @@
 - skip
 - sum
 - average
+- max                   - working
+- min                   - working
 - range and Array.range
 - union
 - clone

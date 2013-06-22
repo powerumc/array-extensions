@@ -428,6 +428,23 @@ TestCase("array.union", {
     }
 });
 
+TestCase("array.max", {
+
+    "test.max": function() {
+        var arr = [9,6,5,10,7,4,6];
+
+        console.info("test.max = " + arr.max());
+
+    }
+    ,
+    "test.max.function": function() {
+
+        var arr = [9,6,5,10,7,4,6];
+
+        console.info("test.max.function = " + arr.max(function(i) { return i < 5 ; }))
+}
+});
+
 
 TestCase("array.complex.example", {
 
