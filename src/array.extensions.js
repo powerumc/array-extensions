@@ -392,7 +392,11 @@ Array.prototype.average = function( selector ) {
 
 Array.prototype.max = function( predicate ) {
 
-    var max = 0;
+    var max;
+
+    if( this.length === 0 ) throw "no array data";
+
+    if( this.length > 0 ) max = this[0];
 
     if( predicate && predicate.isFunction() ) {
 
@@ -414,6 +418,35 @@ Array.prototype.max = function( predicate ) {
     }
 
     return max;
+}
+
+Array.prototype.min = function( predicate ) {
+    var min;
+
+    if( this.length === 0 ) throw "no array data";
+
+    if( this.length > 0 ) min = this[0];
+
+    if( predicate && predicate.isFunction() ) {
+
+        for(var i=0; i<this.length; i++ ) {
+            var pred = predicate(this[i]);
+            if( pred && min > this[i] ) {
+                min = this[i];
+            }
+        }
+
+    } else {
+
+        for(var i=0; i<this.length; i++) {
+            var dest = this[i];
+            if( min > dest ) {
+                min = dest;
+            }
+        }
+    }
+
+    return min;
 }
 
 

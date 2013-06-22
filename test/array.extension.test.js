@@ -442,7 +442,24 @@ TestCase("array.max", {
         var arr = [9,6,5,10,7,4,6];
 
         console.info("test.max.function = " + arr.max(function(i) { return i < 5 ; }))
-}
+    }
+});
+
+TestCase("array.min", {
+
+    "test.min": function() {
+        var arr = [9,6,5,10,7,4,6];
+
+        console.info("test.min = " + arr.min());
+
+    }
+    ,
+    "test.min.function": function() {
+
+        var arr = [9,6,5,10,7,4,6];
+
+        console.info("test.min.function = " + arr.min(function(i) { return i < 5 ; }))
+    }
 });
 
 
