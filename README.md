@@ -4,6 +4,16 @@
 - It is an array extensions that can be used **javascript** and **node.js**.
 - It is just likes C# extension methods or lambda expression can be used.
 
+# Use it
+
+Nuget
+```js
+PM> Install-Package JS.Array.Extensions
+=======
+Install-Package JS.Array.Extensions
+```
+
+
 # Support methods
 
 - any
@@ -21,8 +31,8 @@
 - skip
 - sum
 - average
-- max                   - working
-- min                   - working
+- max
+- min
 - range and Array.range
 - union
 - clone
