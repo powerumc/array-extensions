@@ -9,16 +9,13 @@
 Nuget
 ```js
 PM> Install-Package JS.Array.Extensions
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-Install-Package JS.Array.Extensions
-=======
->>>>>>> 2e0a807... add nuget repository and sample ccommand
-=======
-=======
-Install-Package JS.Array.Extensions
->>>>>>> 7c56625... test
+```
+
+Node.JS
+```
+$ npm install js-array-extensions
+
+required('js-array-extensions');
 ```
 
 
