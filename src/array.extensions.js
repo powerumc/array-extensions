@@ -16,7 +16,7 @@
 
 var _MESSAGE_OF_NULL_REFERENCES         = function(argName) { return argName + " is null (a) references."; };
 var _MESSAGE_OF_NULL_ARGUMENTS          = function(argName) { return argName + " is null (an) arguments"; };
-var _MESSAGE_OF_INVALID_ARGUMENTS       = function(argName, needsType) { return argName + " is (an) invalid arguments." + ( !needsType ? "It's have to " + needsTypeV : ""); };
+var _MESSAGE_OF_INVALID_ARGUMENTS       = function(argName, needsType) { return argName + " is (an) invalid arguments." + ( !needsType ? "It's have to " + needsType : ""); };
 
 
 
