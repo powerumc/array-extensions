@@ -3,6 +3,7 @@
 
 - It is an array extensions that can be used **javascript** and **node.js**.
 - It is just likes C# extension methods or lambda expression can be used.
+- It is more fantastic with https://github.com/powerumc/js-lambda
 
 # Use it
 
@@ -15,7 +16,7 @@ Node.JS
 ```
 $ npm install js-array-extensions
 
-required('js-array-extensions');
+require('js-array-extensions');
 ```
 
 
