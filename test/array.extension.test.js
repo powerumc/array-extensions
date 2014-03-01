@@ -60,6 +60,27 @@ TestCase("object.clone", {
     }
 });
 
+TestCase("object.contains", {
+	"test.contains.byString": function () {
+
+		var str = "Hello";
+		var result = isContains(str, "e");
+
+		console.info(result);
+		assertTrue(result);
+
+	},
+	"test.contains.byArray": function () {
+
+		var arr = [1, 3, 5, 7, 9];
+		var result = isContains(arr, 5);
+
+		console.info(result);
+		assertTrue(result);
+
+	}
+});
+
 
 var arr = [ { "key": "powerumc",    "value": "http://blog.powerumc.kr" },
             { "key": "devth",       "value": "http://devwith.com" },
@@ -495,3 +516,33 @@ TestCase("array.complex.example", {
 
 });
 
+
+TestCase("array.distinct", {
+
+
+
+	"test.distinct.alone": function() {
+
+		var first 	= [1,2,3,4,5];
+		var second 	= [1,2,3,4,5,6,7,8,9];
+
+		var result 	= Array.distinct(first);
+		result		= first.distinct();
+
+		console.info(result);
+
+	},
+
+	"test.distinct.args": function () {
+
+		var first 	= [1, 2, 3, 4, 5];
+		var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		var third	= [1, 5, 9, 11, 15];
+
+		var result = Array.distinct(first, second, third);
+
+		console.info(result);
+
+	}
+
+});
