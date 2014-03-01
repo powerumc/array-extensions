@@ -41,11 +41,11 @@ required('js-array-extensions');
 - range and Array.range
 - union
 - clone
+- distinct
 - merge                 - working
 - innerJoin             - working
 - outerJoin             - working
 - groupBy               - working
-- distinct              - working
 
 ## **Basics**
 
