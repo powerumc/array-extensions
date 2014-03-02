@@ -17,7 +17,7 @@
 var _MESSAGE_OF_NULL_REFERENCES         = function(argName) { return argName + " is null (a) references."; };
 var _MESSAGE_OF_NULL_ARGUMENTS          = function(argName) { return argName + " is null (an) arguments"; };
 var _MESSAGE_OF_INVALID_ARGUMENTS       = function(argName, needsType) { return argName + " is (an) invalid arguments." + ( !needsType ? "It's have to " + needsType : ""); };
-
+var _MESSAGE_OF_NOT_SUPPORT_ARGUMENTS	= function(argName, argObject) { return  typeof argObject + " type of " + argName + " argument is not support"; };
 
 
 var foreach = foreach || {
@@ -61,6 +61,26 @@ function isString( obj ) {
 function isBoolean( obj ) {
     return typeof obj === "boolean";
 };
+
+function isContains( source, object ) {
+
+	if( arguments.length === 0 )		throw "second argument needs an array";
+	if( !source )						throw _MESSAGE_OF_NULL_ARGUMENTS("source");
+	if( !object )						throw _MESSAGE_OF_NULL_ARGUMENTS("object");
+
+	if( source.isString() ) {
+		return source.indexOf(object) >= 0;
+	} else if ( source.isArray() ) {
+		for(var i=0; i<source.length; i++) {
+			if( source[i] == object ) return true;
+		}
+
+		return false;
+	}
+
+	throw _MESSAGE_OF_NOT_SUPPORT_ARGUMENTS("source", source);
+
+}
 
 function _cloneObject( obj ) {
 
@@ -510,13 +530,9 @@ function _union( first, second ) {
 }
 
 
-Object.union = function(first, second) {
-    return _union( first, second );
-}
+Object.union = _union;
 
-Array.union = function(first, second) {
-    return _union(first, second);
-}
+Array.union = _union;
 
 Array.prototype.union = Array.prototype.union || function( second ) {
 
@@ -525,3 +541,29 @@ Array.prototype.union = Array.prototype.union || function( second ) {
 
     return _union( this, second );
 };
+
+
+
+
+
+
+Array.distinct = function( first, second ) {
+
+	var arr = [];
+	for(var i=0; i<arguments.length; i++) {
+
+		if (!arguments[i].isArray())	throw _MESSAGE_OF_INVALID_ARGUMENTS(i + " index argument", "Array");
+		if (!arguments[i] ) 			throw _MESSAGE_OF_NULL_ARGUMENTS(i + " index argument");
+		if (arguments.length === 0)		continue;
+
+		for(var x=0; x<arguments[i].length; x++) {
+
+			var pickup = arguments[i][x];
+			if( !isContains(arr, pickup)) arr.push(pickup);
+		}
+	}
+
+	return arr;
+};
+
+Array.prototype.distinct = Array.distinct;
