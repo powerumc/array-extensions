@@ -1,6 +1,6 @@
 {
   "name": "js-array-extensions",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "It is an array extensions that can be used javascript and node.js.",
   "main": "./src/array.extensions.js",
   "scripts": {

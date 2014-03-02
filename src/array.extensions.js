@@ -517,16 +517,23 @@ Array.prototype.range = function( start, max, step ) {
 
 function _union( first, second ) {
 
+	if (arguments.length < 1)       throw "second argument needs an array";
+
     first  = (first  && first.isArray())    ? first : [ first ];
-    second = (second && second.isArray())   ? second : [ second ];
+	var arr = Array.clone(first);
 
-    var arr = Array.clone(first);
+	for(var i=1; i<arguments.length; i++) {
+		second = arguments[i];
+		if( !second ) continue;
 
-    for(var i=0; i<second.length; i++) {
-        arr.push( Object.clone(second[ i ]) );
-    }
+		second = (second && second.isArray())   ? second : [ second ];
 
-    return arr;
+		for(var i=0; i<second.length; i++) {
+			arr.push( Object.clone(second[ i ]) );
+	    }
+	}
+
+	return arr;
 }
 
 
@@ -539,11 +546,8 @@ Array.prototype.union = Array.prototype.union || function( second ) {
     if( arguments.length === 0 )        throw "second argument needs an array";
     if( second && !second.isArray())    throw _MESSAGE_OF_INVALID_ARGUMENTS("second", "Array");
 
-    return _union( this, second );
+	return _union.apply(this, arguments);
 };
-
-
-
 
 
 
@@ -552,8 +556,8 @@ Array.distinct = function( first, second ) {
 	var arr = [];
 	for(var i=0; i<arguments.length; i++) {
 
-		if (!arguments[i].isArray())	throw _MESSAGE_OF_INVALID_ARGUMENTS(i + " index argument", "Array");
 		if (!arguments[i] ) 			throw _MESSAGE_OF_NULL_ARGUMENTS(i + " index argument");
+		if (!arguments[i].isArray())	throw _MESSAGE_OF_INVALID_ARGUMENTS(i + " index argument", "Array");
 		if (arguments.length === 0)		continue;
 
 		for(var x=0; x<arguments[i].length; x++) {

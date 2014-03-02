@@ -537,11 +537,12 @@ TestCase("array.distinct", {
 
 		var first 	= [1, 2, 3, 4, 5];
 		var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
-		var third	= [1, 5, 9, 11, 15];
+		var third 	= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 		var result = Array.distinct(first, second, third);
 
 		console.info(result);
+
 
 	}
 

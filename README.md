@@ -43,7 +43,6 @@ require('js-array-extensions');
 - union
 - clone
 - distinct
-- merge                 - working
 - innerJoin             - working
 - outerJoin             - working
 - groupBy               - working
@@ -382,6 +381,21 @@ array[1] =  { "name"      : { first:"Apple", last:"MacBook" },
               "address"   : { country:"U.S", city:"N/A" },
               "email"     : "apple@apple.com" }
 ```
+
+** Array.distinct( first, second, ... ) **
+'''js
+		var first 	= [1, 2, 3, 4, 5];
+		var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		var third 	= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+		var result  = Array.distinct(first, second, third);
+
+		console.info(result);
+
+		// result
+		// 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+'''
+
 
 # Complex Examples
 
