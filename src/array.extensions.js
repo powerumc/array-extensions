@@ -161,6 +161,17 @@ Object.prototype.isString = function() {
     return isString(this);
 };
 
+Object.prototype.equals = Object.prototype.equals || function( destination ) {
+
+	if( isArray(this) && destination.isArray() ) return !(this > destination || this < destination);
+	else if( isObject(this)) {
+		// 미완성
+	}
+
+	return this === destination;
+
+};
+
 
 Array.clone = function( array ) {
 
@@ -561,7 +572,6 @@ Array.distinct = function( first, second ) {
 		if (arguments.length === 0)		continue;
 
 		for(var x=0; x<arguments[i].length; x++) {
-
 			var pickup = arguments[i][x];
 			if( !isContains(arr, pickup)) arr.push(pickup);
 		}
@@ -571,3 +581,42 @@ Array.distinct = function( first, second ) {
 };
 
 Array.prototype.distinct = Array.distinct;
+
+
+
+function _join( first, second, primaryKey, foreignKey, selector ) {
+
+	if( !first )		throw _MESSAGE_OF_NULL_ARGUMENTS("first");
+	if( !second )       throw _MESSAGE_OF_NULL_ARGUMENTS("second");
+
+	if( !first.isArray() )			throw _MESSAGE_OF_NOT_SUPPORT_ARGUMENTS("first", first);
+	if( !second.isArray() )			throw _MESSAGE_OF_NOT_SUPPORT_ARGUMENTS("second", second);
+
+	var arr = [];
+	primaryKey = primaryKey || function(a) { return a; };
+	foreignKey = foreignKey || function(b) { return b; };
+	selector   = selector   || function(a,b) { return a; };
+
+	for(var l=0; l<first.length; l++) {
+		for(var r=0; r<second.length; r++) {
+
+			var args = [ first[l], second[r] ];
+			var a 	 = primaryKey(first[l]);
+			var b 	 = foreignKey(second[r]);
+
+			var isMatch = a === b;
+			if( isMatch !== undefined && isMatch ) {
+				var result = selector.apply(this, args);
+				arr.push(result);
+			}
+		}
+	}
+
+	return arr;
+}
+
+Array.innerJoin = Array.innerJoin || _join;
+
+Array.prototype.innerJoin = Array.prototype.innerJoin || function( dest, primaryKey, foreignKey, selector ) {
+	return _join( this, dest, primaryKey, foreignKey, selector );
+};

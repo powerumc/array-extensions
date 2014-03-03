@@ -43,7 +43,7 @@ require('js-array-extensions');
 - union
 - clone
 - distinct
-- innerJoin             - working
+- innerJoin
 - outerJoin             - working
 - groupBy               - working
 
@@ -397,22 +397,33 @@ array[1] =  { "name"      : { first:"Apple", last:"MacBook" },
 '''
 
 
-# Complex Examples
+** Array.distinct( first, second, ... ) **
+'''js
+var first 	= [1, 2, 3, 4, 5];
+var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var third 	= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-## Example 1
-```js
-var sum = Array.range(1, 11).sum();         // sum = 55
-```
+var result  = Array.distinct(first, second, third);
 
-## Example 2
-```js
-var arr = Array.range(1, 10)
-               .select(function(i) { return { number:i, name:"POWERUMC " + i } })
-               .where(function(o) { return o.number >= 5 })
-               .take(3);
+console.info(result);
 
-// results var arr
-POWERUMC 5
-POWERUMC 6
-POWERUMC 7
-```
+// result
+// 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+'''
+
+** Array.innerJoin( first, second, primaryKey, foreignKey, selector ) **
+'''js
+var firstjoin = [ 	{ name: "Junil Um" },
+					{ name: "Chulsu" },
+					{ name: "Jane" },
+					{ name: "Paris" } ];
+
+var secondjoin = [ 	{ name: "Junil Um", 	addr: { addr1: "Junil Addr1", 			addr2: "Junil Addr2" }},
+					{ name: "Chulsu.", 		addr: { addr1: "Chulsu Addr1", 			addr2: "Chulsu Addr2" }},
+					{ name: "Jane", 		addr: { addr1: "Jane Addr1", 			addr2: "Jane Addr2" }},
+					{ name: "Paris...",		addr: { addr1: "Paris Addr1",		 	addr2: "Paris Addr2" }} ];
+
+var result = firstjoin.join( secondjoin, function(a) { return a.name; },
+										 function(b) { return b.name; },
+										 function(a,b) { return { a: a.name, b: b.addr.addr1 }; });
+'''

@@ -60,6 +60,48 @@ TestCase("object.clone", {
     }
 });
 
+TestCase("object.equals", {
+
+	"test.equals": function() {
+
+		var result = "A".equals("A");;
+		console.info(result);
+		assertTrue(result);
+
+	},
+	"test.equals.array": function() {
+
+		var arr1 = [1,2,3,4,5];
+		var arr2 = [1,2,3,4,5];
+		var result = arr1.equals(arr2);
+
+		print(result);
+		assertTrue(result);
+
+	},
+	"test.equals.array.nested": function() {
+
+		var arr1 = [1, 2, 3, [3, 4] ,4, 5];
+		var arr2 = [1, 2, 3, [3, 4], 4, 5];
+		var result = arr1.equals(arr2);
+
+		print(result);
+		assertTrue(result);
+
+	},
+	"test.equals.array.objects.nested": function () {
+
+		var arr1 = [1, 2, 3, { a:1, b:2 } , 4, 5];
+		var arr2 = [1, 2, 3, { a:1, b:2 } , 4, 5];
+		var result = arr1.equals(arr2);
+
+		print(result);
+		assertTrue(result);
+
+	}
+
+});
+
 TestCase("object.contains", {
 	"test.contains.byString": function () {
 
@@ -542,6 +584,64 @@ TestCase("array.distinct", {
 		var result = Array.distinct(first, second, third);
 
 		console.info(result);
+	}
+});
+
+
+var firstjoin = [ 	{ name: "Junil Um" },
+					{ name: "Chulsu" },
+					{ name: "Jane" },
+					{ name: "Paris" } ];
+
+var secondjoin = [ 	{ name: "Junil Um", 	addr: { addr1: "Junil Addr1", 			addr2: "Junil Addr2" }},
+					{ name: "Chulsu.", 		addr: { addr1: "Chulsu Addr1", 			addr2: "Chulsu Addr2" }},
+					{ name: "Jane", 		addr: { addr1: "Jane Addr1", 			addr2: "Jane Addr2" }},
+					{ name: "Paris...",		addr: { addr1: "Paris Addr1",		 	addr2: "Paris Addr2" }} ];
+
+TestCase("Array.join", {
+
+	"test.join.inner" : function() {
+
+		var first  = [1, 2, 3, 4 , 5 , 6 , 7 , 8 , 9 , 0];
+		var second = [1, 3, 5, 7, 9];
+		var result = _join(first, second, function(a) { return a; }, function(b) { return b; });
+
+		console.info(result);
+		assertEquals(result[0], 1);
+		assertEquals(result[1], 3);
+		assertEquals(result[2], 5);
+		assertEquals(result[3], 7);
+		assertEquals(result[4], 9);
+
+		result = first.innerJoin(second);
+		assertEquals(result[0], 1);
+		assertEquals(result[1], 3);
+		assertEquals(result[2], 5);
+		assertEquals(result[3], 7);
+		assertEquals(result[4], 9);
+
+	},
+
+	"test.join.inner.nested": function() {
+
+		var result 	=	_join(firstjoin, secondjoin, function(a) { return a.name; },
+													 function(b) { return b.name; });
+
+		print(result);
+		assertEquals(firstjoin[0].name, result[0].name);
+
+	},
+	"test.join.inner.selector": function() {
+
+		var result = _join(firstjoin, secondjoin, function(a) { return a.name; },
+												  function(b) { return b.name; },
+												  function(a,b) { return { a: a.name, b: b.addr.addr1 }; });
+
+		print(result);
+		assertEquals(result[0].a, firstjoin[0].name);
+		assertEquals(result[0].b, secondjoin[0].addr.addr1);
+
+		print(result);
 
 
 	}
