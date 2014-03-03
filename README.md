@@ -144,6 +144,36 @@ take and skip 11,12,13,14,15
 ```
 
 
+**Array.distinct( first, second, ... )**
+```js
+		var first 	= [1, 2, 3, 4, 5];
+		var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		var third 	= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+		var result  = Array.distinct(first, second, third);
+
+		console.info(result);
+
+		// result
+		// 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+```
+
+
+**Array.distinct( first, second, ... )**
+```js
+var first 	= [1, 2, 3, 4, 5];
+var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var third 	= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+var result  = Array.distinct(first, second, third);
+
+console.info(result);
+
+// result
+// 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+```
+
+
 
 ## **Loop**
 
@@ -269,6 +299,65 @@ orderBy comparer.descending 8
 orderBy comparer.descending 4
 ```
 
+## Combination
+
+
+**Array.union( first, second )**
+```js
+var first   = [1,2,3,[4,5]];
+var second  = [[6,7,8],9,10];
+var union    = first.union(second);
+
+// results var union
+array[0] = 1
+array[1] = 2
+array[2] = 3
+array[3] = [4,5]
+array[4] = [6,7,8]
+array[5] = [9]
+array[6] = [10]
+```
+
+**Object.union( first, second )**
+```js
+var person1 = { "name"      : { first:"Junil", last:"Um" },
+                "address"   : { country:"South Korea", city:"Seoul" },
+                "email"     : "powerumc at gmail" };
+var person2 = { "name"      : { first:"Apple", last:"MacBook" },
+                "address"   : { country:"U.S", city:"N/A" },
+                "email"     : "apple@apple.com" };
+
+var union   = Object.union(person1, person2);
+
+// results var union
+array[0] =  { "name"      : { first:"Junil", last:"Um" },
+              "address"   : { country:"South Korea", city:"Seoul" },
+              "email"     : "powerumc at gmail" }
+array[1] =  { "name"      : { first:"Apple", last:"MacBook" },
+              "address"   : { country:"U.S", city:"N/A" },
+              "email"     : "apple@apple.com" }
+```
+
+## Join
+
+**Array.innerJoin( first, second, primaryKey, foreignKey, selector )**
+```js
+var firstjoin = [ 	{ name: "Junil Um" },
+					{ name: "Chulsu" },
+					{ name: "Jane" },
+					{ name: "Paris" } ];
+
+var secondjoin = [ 	{ name: "Junil Um", 	addr: { addr1: "Junil Addr1", 			addr2: "Junil Addr2" }},
+					{ name: "Chulsu.", 		addr: { addr1: "Chulsu Addr1", 			addr2: "Chulsu Addr2" }},
+					{ name: "Jane", 		addr: { addr1: "Jane Addr1", 			addr2: "Jane Addr2" }},
+					{ name: "Paris...",		addr: { addr1: "Paris Addr1",		 	addr2: "Paris Addr2" }} ];
+
+var result = firstjoin.join( secondjoin, function(a) { return a.name; },
+										 function(b) { return b.name; },
+										 function(a,b) { return { a: a.name, b: b.addr.addr1 }; });
+```
+
+
 
 ## Numbers
 
@@ -344,86 +433,4 @@ var union    = first.union(second);
 
 // results var union
 array.union = 1,2,3,4,5,6,7,8,9,10
-```
-
-**Array.union( first, second )**
-```js
-var first   = [1,2,3,[4,5]];
-var second  = [[6,7,8],9,10];
-var union    = first.union(second);
-
-// results var union
-array[0] = 1
-array[1] = 2
-array[2] = 3
-array[3] = [4,5]
-array[4] = [6,7,8]
-array[5] = [9]
-array[6] = [10]
-```
-
-**Object.union( first, second )**
-```js
-var person1 = { "name"      : { first:"Junil", last:"Um" },
-                "address"   : { country:"South Korea", city:"Seoul" },
-                "email"     : "powerumc at gmail" };
-var person2 = { "name"      : { first:"Apple", last:"MacBook" },
-                "address"   : { country:"U.S", city:"N/A" },
-                "email"     : "apple@apple.com" };
-
-var union   = Object.union(person1, person2);
-
-// results var union
-array[0] =  { "name"      : { first:"Junil", last:"Um" },
-              "address"   : { country:"South Korea", city:"Seoul" },
-              "email"     : "powerumc at gmail" }
-array[1] =  { "name"      : { first:"Apple", last:"MacBook" },
-              "address"   : { country:"U.S", city:"N/A" },
-              "email"     : "apple@apple.com" }
-```
-
-**Array.distinct( first, second, ... )**
-```js
-		var first 	= [1, 2, 3, 4, 5];
-		var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
-		var third 	= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
-		var result  = Array.distinct(first, second, third);
-
-		console.info(result);
-
-		// result
-		// 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
-```
-
-
-**Array.distinct( first, second, ... )**
-```js
-var first 	= [1, 2, 3, 4, 5];
-var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
-var third 	= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
-var result  = Array.distinct(first, second, third);
-
-console.info(result);
-
-// result
-// 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
-```
-
-**Array.innerJoin( first, second, primaryKey, foreignKey, selector )**
-```js
-var firstjoin = [ 	{ name: "Junil Um" },
-					{ name: "Chulsu" },
-					{ name: "Jane" },
-					{ name: "Paris" } ];
-
-var secondjoin = [ 	{ name: "Junil Um", 	addr: { addr1: "Junil Addr1", 			addr2: "Junil Addr2" }},
-					{ name: "Chulsu.", 		addr: { addr1: "Chulsu Addr1", 			addr2: "Chulsu Addr2" }},
-					{ name: "Jane", 		addr: { addr1: "Jane Addr1", 			addr2: "Jane Addr2" }},
-					{ name: "Paris...",		addr: { addr1: "Paris Addr1",		 	addr2: "Paris Addr2" }} ];
-
-var result = firstjoin.join( secondjoin, function(a) { return a.name; },
-										 function(b) { return b.name; },
-										 function(a,b) { return { a: a.name, b: b.addr.addr1 }; });
 ```
