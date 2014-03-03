@@ -382,7 +382,7 @@ array[1] =  { "name"      : { first:"Apple", last:"MacBook" },
               "email"     : "apple@apple.com" }
 ```
 
-** Array.distinct( first, second, ... ) **
+**Array.distinct( first, second, ... )**
 ```js
 		var first 	= [1, 2, 3, 4, 5];
 		var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -397,7 +397,7 @@ array[1] =  { "name"      : { first:"Apple", last:"MacBook" },
 ```
 
 
-** Array.distinct( first, second, ... ) **
+**Array.distinct( first, second, ... )**
 ```js
 var first 	= [1, 2, 3, 4, 5];
 var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -411,7 +411,7 @@ console.info(result);
 // 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 ```
 
-** Array.innerJoin( first, second, primaryKey, foreignKey, selector ) **
+**Array.innerJoin( first, second, primaryKey, foreignKey, selector )**
 ```js
 var firstjoin = [ 	{ name: "Junil Um" },
 					{ name: "Chulsu" },
