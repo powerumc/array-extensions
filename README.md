@@ -383,7 +383,7 @@ array[1] =  { "name"      : { first:"Apple", last:"MacBook" },
 ```
 
 ** Array.distinct( first, second, ... ) **
-'''js
+```js
 		var first 	= [1, 2, 3, 4, 5];
 		var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
 		var third 	= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -394,11 +394,11 @@ array[1] =  { "name"      : { first:"Apple", last:"MacBook" },
 
 		// result
 		// 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
-'''
+```
 
 
 ** Array.distinct( first, second, ... ) **
-'''js
+```js
 var first 	= [1, 2, 3, 4, 5];
 var second 	= [1, 2, 3, 4, 5, 6, 7, 8, 9];
 var third 	= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -409,10 +409,10 @@ console.info(result);
 
 // result
 // 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
-'''
+```
 
 ** Array.innerJoin( first, second, primaryKey, foreignKey, selector ) **
-'''js
+```js
 var firstjoin = [ 	{ name: "Junil Um" },
 					{ name: "Chulsu" },
 					{ name: "Jane" },
@@ -426,4 +426,4 @@ var secondjoin = [ 	{ name: "Junil Um", 	addr: { addr1: "Junil Addr1", 			addr2:
 var result = firstjoin.join( secondjoin, function(a) { return a.name; },
 										 function(b) { return b.name; },
 										 function(a,b) { return { a: a.name, b: b.addr.addr1 }; });
-'''
+```
