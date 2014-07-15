@@ -239,7 +239,29 @@ TestCase("array.last", {
             assertEquals(result, []);
         }
 
-    }
+    },
+	"test.fix.error.case1": function() {
+		var arr = [1, 2, 3, 0];
+		var result = arr.last();
+
+		assertEquals(0, result);
+	},
+	"test.fix.error.case2": function() {
+		var arr = [1, 2, 3, ""];
+		var result = arr.last();
+		assertEquals("", result);
+	},
+	"test.fix.error.case3": function() {
+		var arr = [1, 2, 3, undefined];
+		var result = arr.last();
+		assertEquals(undefined, result);
+	},
+	"test.fix.error.case4": function() {
+		var arr = [1, 2, 3, null];
+		var result = arr.last();
+
+		assertEquals(null, result);
+	}
 });
 
 

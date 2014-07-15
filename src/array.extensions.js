@@ -293,9 +293,6 @@ Array.prototype.lastOrNew = function( predicate ) {
 
 Array.prototype.last = function( predicate ) {
     var last = this.lastOrDefault(predicate);
-
-    if( !last ) throw "Null Reference";
-
     return last;
 };
 
