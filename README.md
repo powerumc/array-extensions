@@ -1,6 +1,8 @@
 Junil Um  
 http://blog.powerumc.kr
 
+![travis build results](https://travis-ci.org/powerumc/array-extensions.svg?branch=master)
+
 # Javascript Array Extensions
 
 
