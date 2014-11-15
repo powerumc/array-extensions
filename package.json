@@ -24,9 +24,6 @@
   "bugs": {
     "url": "https://github.com/powerumc/array-extensions/issues"
   },
-  "directories": {
-    "test": "test"
-  },
   "_from": "js-array-extensions@",
   "homepage": "https://github.com/powerumc/array-extensions"
 }
