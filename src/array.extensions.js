@@ -11,6 +11,9 @@
  */
 
 
+;
+(function() {
+
 "use strict"
 ;
 
@@ -620,3 +623,6 @@ Array.innerJoin = Array.innerJoin || _join;
 Array.prototype.innerJoin = Array.prototype.innerJoin || function( dest, primaryKey, foreignKey, selector ) {
 	return _join( this, dest, primaryKey, foreignKey, selector );
 };
+
+
+}());
