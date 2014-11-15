@@ -1,0 +1,29 @@
+{
+  "name": "array-extensions",
+  "version": "1.0.8",
+  "homepage": "https://github.com/powerumc/array-extensions",
+  "authors": [
+    "Junil Um <powerumc@gmail.com>"
+  ],
+  "description": "It is an array extensions that can be used javascript and node.js.",
+  "main": "./src/array.extensions.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "javascript",
+    "array",
+    "extensions",
+    "js",
+    "lambda",
+    "expression"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
