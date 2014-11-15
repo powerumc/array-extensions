@@ -137,6 +137,12 @@ TestCase("array.any", {
         console.info(result);
     },
 
+	"test.any.object": function() {
+		var result = [1,2,3,4,5].any(3);
+		assertTrue(result);
+		console.info(result);
+	},
+
     "test.any(fn)": function() {
         var result = [1,2,3,4,5].any(function(i) { return i > 3; });
         assertTrue(result);

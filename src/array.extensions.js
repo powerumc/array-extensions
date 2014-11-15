@@ -217,9 +217,9 @@ Array.prototype.any = function( predicate ) {
 
 
     if( predicate && predicate.isFunction()) {
-        for( var i in this)
+        for (var i = 0, item; item = this[i]; i++)
         {
-            if(predicate(i)) return true;
+            if (predicate(item)) return true;
         }
 
         return false;
