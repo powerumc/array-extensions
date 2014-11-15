@@ -64,7 +64,7 @@ TestCase("object.equals", {
 
 	"test.equals": function() {
 
-		var result = "A".equals("A");;
+		var result = "A".equals("A");
 		console.info(result);
 		assertTrue(result);
 

@@ -12,7 +12,6 @@
 
 
 ;
-(function() {
 
 "use strict"
 ;
@@ -42,28 +41,28 @@ var comparer = comparer || {
 
 function isFunction( fn ) {
     return typeof fn === 'function';
-};
+}
 
 function isArray( obj ) {
     return typeof obj === "object" && obj instanceof Array;
-};
+}
 
 
 function isObject( obj ) {
     return typeof obj === "object" && (isArray(obj) === false );
-};
+}
 
 function isNumber( obj ) {
-    return typeof obj === "number";
-};
+    return typeof obj === "number" || obj instanceof Number;
+}
 
 function isString( obj ) {
-    return typeof obj === "string";
-};
+    return typeof obj === "string" || obj instanceof String;
+}
 
 function isBoolean( obj ) {
     return typeof obj === "boolean";
-};
+}
 
 function isContains( source, object ) {
 
@@ -101,7 +100,7 @@ function _cloneObject( obj ) {
     if( prop && prop.length === 0) {
         return new Object(obj);
     }
-    var newObj = new Object();
+    var newObj = {};
     for(var i=0; i<prop.length; i++) {
 
         var item = obj[prop[ i ]];
@@ -164,14 +163,14 @@ Object.prototype.isString = function() {
     return isString(this);
 };
 
-Object.prototype.equals = Object.prototype.equals || function( destination ) {
+Object.prototype.equals = function( destination ) {
 
 	if( isArray(this) && destination.isArray() ) return !(this > destination || this < destination);
 	else if( isObject(this)) {
-		// 미완성
+		return this == destination;
 	}
 
-	return this === destination;
+	return this == destination;
 
 };
 
@@ -315,19 +314,17 @@ Array.prototype.select = function( selector ) {
 };
 
 Array.prototype.where = function( selector ) {
+    var arr = [], i;
     if( selector && selector.isFunction()) {
-        var arr = [];
-        for(var i=0; i<this.length; i++) {
+        for(i=0; i<this.length; i++) {
             if( selector(this[i])) {
                 arr.push(this[i]);
             }
         }
 
         return arr;
-
     } else {
-        var arr = [];
-        for(var i=0; i<this.length; i++ ) {
+        for(i=0; i<this.length; i++ ) {
             if( this[i] == selector ) {
                 arr.push(this[i]);
             }
@@ -382,16 +379,16 @@ Array.prototype.skip = function( number ) {
 
 Array.prototype.sum = function( selector ) {
 
-    var sum = 0;
+    var sum = 0, i;
     if( selector && selector.isFunction()) {
 
-        for(var i=0; i<this.length; i++) {
+        for(i=0; i<this.length; i++) {
             sum += selector( this[i] );
         }
 
     } else {
 
-        for(var i=0; i<this.length; i++) {
+        for(i=0; i<this.length; i++) {
 
             var current = this[i];
 
@@ -417,21 +414,19 @@ Array.prototype.average = function( selector ) {
     if( this.length === 0 ) return 0;
 
     var sum = this.sum(selector);
-
     return sum / this.length;
 };
 
 Array.prototype.max = function( predicate ) {
 
-    var max;
+    var max, i;
 
     if( this.length === 0 ) throw "no array data";
-
     if( this.length > 0 ) max = this[0];
 
     if( predicate && predicate.isFunction() ) {
 
-        for(var i=0; i<this.length; i++ ) {
+        for(i=0; i<this.length; i++ ) {
             var pred = predicate(this[i]);
             if( pred && max < this[i] ) {
                 max = this[i];
@@ -440,7 +435,7 @@ Array.prototype.max = function( predicate ) {
 
     } else {
 
-        for(var i=0; i<this.length; i++) {
+        for(i=0; i<this.length; i++) {
             var dest = this[i];
             if( max < dest ) {
                 max = dest;
@@ -452,7 +447,7 @@ Array.prototype.max = function( predicate ) {
 }
 
 Array.prototype.min = function( predicate ) {
-    var min;
+    var min, i;
 
     if( this.length === 0 ) throw "no array data";
 
@@ -460,7 +455,7 @@ Array.prototype.min = function( predicate ) {
 
     if( predicate && predicate.isFunction() ) {
 
-        for(var i=0; i<this.length; i++ ) {
+        for(i=0; i<this.length; i++ ) {
             var pred = predicate(this[i]);
             if( pred && min > this[i] ) {
                 min = this[i];
@@ -469,7 +464,7 @@ Array.prototype.min = function( predicate ) {
 
     } else {
 
-        for(var i=0; i<this.length; i++) {
+        for(i=0; i<this.length; i++) {
             var dest = this[i];
             if( min > dest ) {
                 min = dest;
@@ -528,18 +523,20 @@ Array.prototype.range = function( start, max, step ) {
 
 function _union( first, second ) {
 
+    var i;
+
 	if (arguments.length < 1)       throw "second argument needs an array";
 
     first  = (first  && first.isArray())    ? first : [ first ];
 	var arr = Array.clone(first);
 
-	for(var i=1; i<arguments.length; i++) {
+	for(i=1; i<arguments.length; i++) {
 		second = arguments[i];
 		if( !second ) continue;
 
 		second = (second && second.isArray())   ? second : [ second ];
 
-		for(var i=0; i<second.length; i++) {
+		for(i=0; i<second.length; i++) {
 			arr.push( Object.clone(second[ i ]) );
 	    }
 	}
@@ -622,4 +619,3 @@ Array.prototype.innerJoin = Array.prototype.innerJoin || function( dest, primary
 };
 
 
-}());
