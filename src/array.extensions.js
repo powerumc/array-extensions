@@ -11,6 +11,9 @@
  */
 
 
+;
+(function() {
+
 "use strict"
 ;
 
@@ -214,9 +217,9 @@ Array.prototype.any = function( predicate ) {
 
 
     if( predicate && predicate.isFunction()) {
-        for( var i in this)
+        for (var i = 0, item; item = this[i]; i++)
         {
-            if(predicate(i)) return true;
+            if (predicate(item)) return true;
         }
 
         return false;
@@ -620,3 +623,6 @@ Array.innerJoin = Array.innerJoin || _join;
 Array.prototype.innerJoin = Array.prototype.innerJoin || function( dest, primaryKey, foreignKey, selector ) {
 	return _join( this, dest, primaryKey, foreignKey, selector );
 };
+
+
+}());
